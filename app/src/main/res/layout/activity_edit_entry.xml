@@ -110,6 +110,8 @@
 
                     <EditText
                         android:id="@+id/add_entry_title"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="20dp"
@@ -143,6 +145,8 @@
 
                     <EditText
                         android:id="@+id/add_entry_location"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="20dp"
@@ -176,12 +180,13 @@
 
                     <EditText
                         android:id="@+id/add_entry_description"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
-                        android:cursorVisible="true"
                         android:background="@drawable/edittext_input_background"
                         android:ems="10"
                         android:hint="description..."
@@ -210,6 +215,8 @@
 
                     <EditText
                         android:id="@+id/add_entry_body"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_marginStart="20dp"

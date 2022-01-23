@@ -29,9 +29,11 @@ public class AddEntryActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         startActivity(new Intent( AddEntryActivity.this, MainActivity.class));
+                        finish();
                         break;
                     case R.id.nav_settings:
                         startActivity(new Intent( AddEntryActivity.this, SettingsActivity.class));
+                        finish();
                         break;
                     case R.id.nav_add:
                         break;

@@ -28,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         startActivity(new Intent( SettingsActivity.this, MainActivity.class));
+                        finish();
                         break;
                     case R.id.nav_settings:
 
@@ -35,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
                     case R.id.nav_add:
 
                         startActivity(new Intent( SettingsActivity.this, AddEntryActivity.class));
+                        finish();
                         break;
                 }
 

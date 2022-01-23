@@ -29,9 +29,11 @@ public class EditEntryActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         startActivity(new Intent( EditEntryActivity.this, MainActivity.class));
+                        finish();
                         break;
                     case R.id.nav_settings:
                         startActivity(new Intent( EditEntryActivity.this, SettingsActivity.class));
+                        finish();
                         break;
                     case R.id.nav_add:
                         break;

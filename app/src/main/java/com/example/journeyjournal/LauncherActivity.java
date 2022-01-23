@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LauncherActivity extends AppCompatActivity {
 
     private Button loginScreenBtn, signInScreenBtn;
@@ -16,13 +18,14 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        loginScreenBtn = findViewById(R.id.launch_signUp_button);
-        signInScreenBtn = findViewById(R.id.launch_login_button);
+        loginScreenBtn = findViewById(R.id.launch_login_button);
+        signInScreenBtn = findViewById(R.id.launch_signUp_button);
 
         loginScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LauncherActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
@@ -30,7 +33,17 @@ public class LauncherActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LauncherActivity.this, SignUpActivity.class));
+                finish();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+            finish();
+        }
     }
 }
