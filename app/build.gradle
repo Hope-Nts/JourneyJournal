@@ -30,6 +30,8 @@ android {
 
 dependencies {
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
@@ -37,6 +39,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.firebaseui:firebase-ui-firestore:8.0.0'
     implementation 'com.google.firebase:firebase-storage'
     testImplementation 'junit:junit:4.+'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'

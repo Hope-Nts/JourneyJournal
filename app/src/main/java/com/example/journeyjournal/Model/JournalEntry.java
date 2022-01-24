@@ -18,6 +18,8 @@ public class JournalEntry {
     }
 
 
+    public JournalEntry() {
+    }
 
     public JournalEntry(String title, String description, String date) {
         this.title = title;
