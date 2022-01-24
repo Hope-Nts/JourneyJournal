@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/back_button"
+                android:id="@+id/edit_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -65,7 +65,7 @@
                     app:cardCornerRadius="25dp">
 
                     <ImageView
-                        android:id="@+id/entry_background"
+                        android:id="@+id/edit_entry_background"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
@@ -77,11 +77,11 @@
                         android:layout_height="match_parent"
                         android:padding="20dp">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_edit"
-                            android:layout_centerInParent="true"/>
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:background="@drawable/ic_edit" />-->
 
                     </RelativeLayout>
 
@@ -109,7 +109,7 @@
 
 
                     <EditText
-                        android:id="@+id/add_entry_title"
+                        android:id="@+id/edit_entry_title"
                         android:cursorVisible="true"
                         android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
@@ -144,7 +144,7 @@
 
 
                     <EditText
-                        android:id="@+id/add_entry_location"
+                        android:id="@+id/edit_entry_location"
                         android:cursorVisible="true"
                         android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
@@ -179,7 +179,7 @@
 
 
                     <EditText
-                        android:id="@+id/add_entry_description"
+                        android:id="@+id/edit_entry_description"
                         android:cursorVisible="true"
                         android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="*Description"
+                        android:text="*Body"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -214,7 +214,7 @@
 
 
                     <EditText
-                        android:id="@+id/add_entry_body"
+                        android:id="@+id/edit_entry_body"
                         android:cursorVisible="true"
                         android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
@@ -233,7 +233,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/edit_entry_button"
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"

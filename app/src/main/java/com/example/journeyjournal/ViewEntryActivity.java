@@ -19,6 +19,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class ViewEntryActivity extends AppCompatActivity {
@@ -29,6 +31,10 @@ public class ViewEntryActivity extends AppCompatActivity {
     private ImageView editBtn,deleteBtn;
     private TextView entryTitle,entryDate, entryDescription;
     private FirebaseFirestore db;
+    private JournalEntry journalEntry;
+    private String entryID;
+    private String userId;
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private ProgressDialog progressDialog;
 
     @Override
@@ -46,15 +52,15 @@ public class ViewEntryActivity extends AppCompatActivity {
         deleteBtn = findViewById(R.id.view_delete_btn);
         editBtn = findViewById(R.id.view_edit_button);
         db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         //getting entry values from intent
         Intent intent = getIntent();
-        JournalEntry journalEntry = intent.getParcelableExtra("journalEntry");
-        String entryID = intent.getStringExtra("journalID");
+        journalEntry = intent.getParcelableExtra("journalEntry");
+        entryID = intent.getStringExtra("journalID");
 
-        entryTitle.setText(journalEntry.getTitle());
+        entryTitle.setText(journalEntry.getLocation());
 //        entryTitle.setText(id);
         entryDate.setText(journalEntry.getDate());
         entryDescription.setText(journalEntry.getDescription());
@@ -74,27 +80,49 @@ public class ViewEntryActivity extends AppCompatActivity {
                 progressDialog.setMessage("Deleting Journal Entry");
                 progressDialog.show();
 
-                db.collection("users").document(userId)
-                        .collection("entries")
-                        .document(entryID)
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                progressDialog.dismiss();
-                                Toast.makeText(ViewEntryActivity.this, "Entry Deleted", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(ViewEntryActivity.this, MainActivity.class));
-                                finish();
-//                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ViewEntryActivity.this, "Entry Deleted", Toast.LENGTH_SHORT).show();
-//                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
+                // Create a storage reference from our app
+                StorageReference storageRef = storage.getReference();
+
+//              Create a reference to the file to delete
+                StorageReference imageRef = storageRef.child(journalEntry.getImagePath());
+
+//              Delete the image file in firebase storage
+                imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        //delete the remainder of the journal entry
+                        db.collection("users").document(userId)
+                                .collection("entries")
+                                .document(entryID)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ViewEntryActivity.this, "Entry Deleted", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(ViewEntryActivity.this, MainActivity.class));
+                                        finish();
+                                        //                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ViewEntryActivity.this, "Entry Delete Unsuccessful", Toast.LENGTH_SHORT).show();
+                                        //                                Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                        Toast.makeText(ViewEntryActivity.this, "Entry Delete Unsuccessful", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
 
@@ -104,8 +132,13 @@ public class ViewEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ViewEntryActivity.this, "Edit button pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewEntryActivity.this, EditEntryActivity.class);
+                intent.putExtra("journalEntry", journalEntry);
+                intent.putExtra("journalID", entryID);
+                startActivity(intent);
             }
         });
+
 
 
 
@@ -139,4 +172,5 @@ public class ViewEntryActivity extends AppCompatActivity {
             }
         });
     }
+
 }
