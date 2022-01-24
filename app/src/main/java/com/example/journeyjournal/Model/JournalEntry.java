@@ -1,17 +1,23 @@
 package com.example.journeyjournal.Model;
 
 public class JournalEntry {
-    private String title, description,body, coordinates,imageUrl,date ;
 
 
-    public JournalEntry(String title, String description, String body, String coordinates, String imageUrl, String date) {
+    String title, publisher, imageUrl, imagePath, location, description, body, date;
+
+
+    public JournalEntry(String title, String publisher, String imageUrl, String imagePath, String location, String description, String body, String date) {
         this.title = title;
+        this.publisher = publisher;
+        this.imageUrl = imageUrl;
+        this.imagePath = imagePath;
+        this.location = location;
         this.description = description;
         this.body = body;
-        this.coordinates = coordinates;
         this.date = date;
-        this.imageUrl = imageUrl;
     }
+
+
 
     public JournalEntry(String title, String description, String date) {
         this.title = title;
@@ -19,13 +25,44 @@ public class JournalEntry {
         this.date = date;
     }
 
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getDescription() {
@@ -52,31 +89,17 @@ public class JournalEntry {
         this.date = date;
     }
 
-
-    public String getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     @Override
     public String toString() {
         return "JournalEntry{" +
                 "title='" + title + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
                 ", body='" + body + '\'' +
-                ", coordinates='" + coordinates + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

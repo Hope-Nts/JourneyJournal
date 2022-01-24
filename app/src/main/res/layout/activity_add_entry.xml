@@ -75,13 +75,17 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:padding="20dp">
 
-                        <ImageView
+                        <TextView
+                            android:id="@+id/upload_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ic_edit"
-                            android:layout_centerInParent="true"/>
+                            android:layout_centerInParent="true"
+                            android:text="Upload Photo"
+
+                            />
 
                     </RelativeLayout>
 
@@ -233,7 +237,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/add_entry_button"
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"

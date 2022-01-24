@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements EntryRecyclerView
     //overriding interface method to open the entry details in the EntryFragment
     @Override
     public void onEntryClick(int position) {
-        Toast.makeText(this, ""+ position +entries.get(position).toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+ position + entries.get(position).toString(), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent( MainActivity.this, ViewEntryActivity.class));
     }
 }

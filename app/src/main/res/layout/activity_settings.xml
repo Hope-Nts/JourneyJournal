@@ -8,11 +8,38 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/screen_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:textSize="50dp"
-        android:layout_centerInParent="true"/>
+        android:textSize="25dp"
+        />
+
+    <RelativeLayout
+        android:layout_below="@+id/screen_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log out"
+            android:textSize="20dp"
+            />
+
+        <Button
+            android:id="@+id/log_out_btn"
+            android:layout_alignParentEnd="true"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:background="@drawable/black_btn_background"
+            android:text="Log Out"
+            android:textAllCaps="false"/>
+    </RelativeLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

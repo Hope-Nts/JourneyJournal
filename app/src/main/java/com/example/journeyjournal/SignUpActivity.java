@@ -13,9 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -23,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView loginSwitch;
     private Button signUpBtn;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         loginSwitch = findViewById(R.id.signUp_login_button);
         signUpBtn = findViewById(R.id.signUp_signUp_button);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         loginSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +60,8 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+
+    // Method for signing a user up
     private void signUp() {
         String email = emailTxt.getText().toString();
         String password = passwordTxt.getText().toString();
@@ -61,29 +72,42 @@ public class SignUpActivity extends AppCompatActivity {
         }else if(!password.equals(reEnterPassword)){
             Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
         }else{
-            /*TODO functionality for signing up*/
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(SignUpActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
                                 emailTxt.setText("");
                                 passwordTxt.setText("");
                                 reEnterPasswordTxt.setText("");
-                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                                finish();
-                                // Sign in success, update UI with the signed-in user's information
-//                                Log.d(TAG, "createUserWithEmail:success");
-//                                FirebaseUser user = mAuth.getCurrentUser();
-//                                updateUI(user);
+
+                                FirebaseUser user = mAuth.getCurrentUser();
+
+                                Map<String, Object> userProfile = new HashMap<>();
+                                userProfile.put("email",email);
+                                String userId = user.getUid();
+
+
+                                db.collection("users").document(userId)
+                                        .set(userProfile)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(SignUpActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+
                             } else {
                                 Toast.makeText(SignUpActivity.this, "Sign Up Unsuccessful. Try Again", Toast.LENGTH_SHORT).show();
-                                // If sign in fails, display a message to the user.
-//                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                                Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                        Toast.LENGTH_SHORT).show();
-//                                updateUI(null);
                             }
                         }
                     });
