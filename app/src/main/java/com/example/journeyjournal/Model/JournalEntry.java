@@ -1,6 +1,10 @@
 package com.example.journeyjournal.Model;
 
-public class JournalEntry {
+import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class JournalEntry implements Parcelable {
 
 
     String title, publisher, imageUrl, imagePath, location, description, body, date;
@@ -27,6 +31,50 @@ public class JournalEntry {
         this.date = date;
     }
 
+    //parcelable methods
+    protected JournalEntry(Parcel in) {
+        title = in.readString();
+        publisher = in.readString();
+        imageUrl = in.readString();
+        imagePath = in.readString();
+        location = in.readString();
+        description = in.readString();
+        body = in.readString();
+        date = in.readString();
+    }
+
+    public static final Creator<JournalEntry> CREATOR = new Creator<JournalEntry>() {
+        @Override
+        public JournalEntry createFromParcel(Parcel in) {
+            return new JournalEntry(in);
+        }
+
+        @Override
+        public JournalEntry[] newArray(int size) {
+            return new JournalEntry[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(publisher);
+        dest.writeString(imageUrl);
+        dest.writeString(imagePath);
+        dest.writeString(location);
+        dest.writeString(description);
+        dest.writeString(body);
+        dest.writeString(date);
+    }
+
+
+
+    //getters and setters
     public String getTitle() {
         return title;
     }
@@ -104,5 +152,7 @@ public class JournalEntry {
                 ", date='" + date + '\'' +
                 '}';
     }
+
+
 }
 

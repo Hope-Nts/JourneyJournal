@@ -99,10 +99,15 @@ public class MainActivity extends AppCompatActivity {
                 String id = documentSnapshot.getId();
                 //document reference for updating or deleting
 //                documentSnapshot.getReference();
-                Toast.makeText(MainActivity.this, "Position:"+position+"ID:"+id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Position:"+ journalEntry.getTitle(), Toast.LENGTH_SHORT).show();
                 //sending document reference
                 String path = documentSnapshot.getReference().getPath();
 
+                //creating intent to pass the data as a parcel to the View Entry Activity
+                Intent intent = new Intent(MainActivity.this, ViewEntryActivity.class);
+                intent.putExtra("journalEntry", journalEntry);
+                intent.putExtra("journalID", id);
+                startActivity(intent);
             }
         });
     }

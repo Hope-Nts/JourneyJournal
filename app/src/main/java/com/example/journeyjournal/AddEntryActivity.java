@@ -164,7 +164,6 @@ public class AddEntryActivity extends AppCompatActivity {
             StorageReference storageRef = Fstorage.getReference();
             imageRef = "images/"+System.currentTimeMillis()+"."+type;
             final StorageReference ref = storageRef.child(imageRef);
-            entryBody.setText(type);
 
             UploadTask uploadTask = ref.putFile(imageUri);
 
@@ -173,7 +172,6 @@ public class AddEntryActivity extends AppCompatActivity {
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
                         Toast.makeText(AddEntryActivity.this, "upload failed", Toast.LENGTH_LONG).show();
-//                        entryBody.setText(task.getException().toString());
                         throw task.getException();
                     }
 
@@ -191,7 +189,7 @@ public class AddEntryActivity extends AppCompatActivity {
                         title = entryTitle.getText().toString();
                         location = entryLocation.getText().toString();
                         description = entryDescription.getText().toString();
-                        body =entryBody.getText().toString();
+                        body = entryBody.getText().toString();
 
 
                         JournalEntry journalEntry = new JournalEntry(title,userId, imageUrl, imageRef, location, description, body,date);
@@ -216,11 +214,6 @@ public class AddEntryActivity extends AppCompatActivity {
 //                                        Log.w(TAG, "Error adding document", e);
                                     }
                                 });
-
-
-//                        startActivity(new Intent(AddEntryActivity.this, MainActivity.class));
-//                        finish();
-//                        progressDialog.dismiss();
                     } else {
                         Toast.makeText(AddEntryActivity.this, "Entry upload failed", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();

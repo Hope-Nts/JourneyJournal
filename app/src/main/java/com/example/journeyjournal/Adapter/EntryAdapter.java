@@ -35,7 +35,6 @@ public class EntryAdapter extends FirestoreRecyclerAdapter<JournalEntry, EntryAd
     protected void onBindViewHolder(@NonNull EntryHolder holder, int position, @NonNull JournalEntry model) {
         holder.textViewTitle.setText(model.getTitle());
         holder.textViewDate.setText(model.getDate());
-        
         Picasso.get().load(model.getImageUrl()).into(holder.imageViewBackground);
 //        holder.imageViewBackground.setBackground(model.getImageUrl());
         holder.textViewDescription.setText(model.getDescription());
